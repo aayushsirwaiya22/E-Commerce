@@ -1,0 +1,38 @@
+/* Welcome Section */
+.admin-welcome-container {
+    text-align: center;
+    color: white;
+    padding: 20px;
+    background-color: rgba(0, 0, 0, 0.6);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    margin-bottom: 30px;
+}
+
+.admin-welcome-container h2 {
+    font-size: 2.5em;
+    margin-bottom: 10px;
+}
+
+.admin-welcome-container p {
+    font-size: 1.2em;
+    margin-top: 10px;
+}
+
+/* Action Buttons */
+.admin-btn {
+    font-size: 18px;
+    padding: 10px 20px;
+    color: white;
+    background: linear-gradient(to right, #007bff, #00c6ff);
+    border-radius: 30px;
+    text-decoration: none;
+    text-align: center;
+    margin-top: 10px;
+    transition: all 0.3s ease;
+}
+
+.admin-btn:hover {
+    background: linear-gradient(to right, #00c6ff, #007bff);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}

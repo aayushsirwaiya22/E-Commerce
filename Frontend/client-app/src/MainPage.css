@@ -1,0 +1,84 @@
+/* Main Page Container */
+.main-container {
+    font-family: 'Arial', sans-serif;
+    /* background-image: url('https://res.cloudinary.com/dthgeghdq/image/upload/v1686279152/A_digital_photograph_for_a_website_homepage_featur.png'); Image URL */
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    padding: 50px;
+    color: white;
+    min-height: 100vh; /* Full screen height */
+    display: flex;
+    justify-content: center;
+    align-items: center; /* This centers the content */
+    animation: fadeInBackground 3s ease-in-out;
+}
+
+/* Flexbox for center content */
+.main-content {
+    text-align: center;
+    background: rgba(0, 0, 0, 0.5); /* Optional: dark background for text readability */
+    padding: 30px;
+    border-radius: 10px;
+    animation: fadeInContent 2s ease-out;
+}
+
+/* Navigation Links Style */
+.main-nav ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.main-nav ul li {
+    display: inline-block;
+    margin-right: 20px;
+}
+
+.main-nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    padding: 12px 20px;
+    background: #000000a3;
+    border-radius: 5px;
+    transition: all 0.3s ease-in-out;
+}
+
+.main-nav ul li a:hover {
+    background-color: #ff6347; /* Orange color on hover */
+    color: white;
+    transform: scale(1.1); /* Hover effect - scale up */
+    box-shadow: 0 4px 8px rgba(255, 99, 71, 0.5); /* Shadow effect */
+}
+
+/* Animation effects */
+@keyframes fadeInBackground {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeInContent {
+    0% {
+        transform: translateY(-30px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Optional Button Hover Effect */
+button {
+    transition: all 0.3s ease-in-out;
+}
+
+button:hover {
+    transform: scale(1.1);
+    background-color: #ff6347; /* Optional orange color */
+}

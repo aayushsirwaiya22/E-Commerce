@@ -1,0 +1,26 @@
+                     E-Commerce Online shopping Website(24/03/2025)
+Management system Project
+
+E-commerce (Electronic commerce) is a process of doing business through computer networks. The primary goal
+of an e-Commerce site is to sell goods and services online.
+Online shopping is form of Electronic shopping store where the buyer is directly online to the sellers computer 
+usually via the internet , sellers can add product at portal.
+
+NUMBER OF MODULES  OF e-Commerce Website Management system
+
+This project is divided into 11 modules
+2.Products modules customer & Vendor.
+3.Products Search Module.
+4.shopping Card Module.
+5.Shipping & Billing Module.
+6.Payment Module.
+7.Admin User management Module.
+8.Admin Catalog Management Module.
+9.Admin Order Management Module.
+10.Product Category management Module.
+11.State and city Management Module.
+
+Entities of Project:
+1. Admin
+2. Customer
+3. Vendor
