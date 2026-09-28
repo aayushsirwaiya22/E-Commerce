@@ -163,7 +163,7 @@ function Bill(props) {
             billid:nextbillid,
             amount:amount/100
         };
-        axios.post("http://localhost:9669/paymentdetailsave",paydetlobjdata).then((res)=>{
+        axios.post("http://localhost:9669/PaymentDetails/paymentdetailsave",paydetlobjdata).then((res)=>{
             alert(typeof res.data === "object" ? JSON.stringify(res.data) : res.data);
             if(res.data=="payment detials saved sucessfully")
                 {

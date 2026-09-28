@@ -93,7 +93,7 @@ function CustomerReg(props) {
                 body: formData,
             })
         if (response) {
-            if (response.statustext == 'ok') {
+            if (response.ok) {
                 setStatus("file uploaded successfully");
             }
             else {
@@ -104,7 +104,7 @@ function CustomerReg(props) {
         axios.post("http://localhost:9669/customer/register/", obj)
             .then((res) => {
                 alert(res.data);
-                if (res.data == "Registration Successfull") {
+                if (res.data == "Registration successfully") {
                     axios.post("http://localhost:9669/email/sendemails/" + cemail)
                         .then((res) => {
                             alert(res.data);
@@ -128,7 +128,7 @@ function CustomerReg(props) {
             body: formData,
         })
         if (response) {
-            if (response.statustext == 'ok') {
+            if (response.ok) {
                 setStatus("file uploaded successfully");
             }
             else {

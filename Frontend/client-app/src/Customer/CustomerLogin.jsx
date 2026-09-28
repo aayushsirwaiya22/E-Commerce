@@ -34,7 +34,7 @@ function CustomerLogin() {
             .then((res) => {
 
                 if (res.data.CUserId!=undefined){
-                if (res.data.status == "inActive") {
+                if (res.data.Status == "Inactive") {
                     alert("user not active Please wait for admin Activation process")
                     return;
                 }
