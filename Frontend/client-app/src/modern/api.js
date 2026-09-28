@@ -56,3 +56,18 @@ export async function uploadProductImage(file) {
     if (!res.ok) throw new Error("Image upload failed");
     return res.text();
 }
+
+export async function toggleProductStatus(pid, status) {
+    const res = await axios.put(`${API_BASE}/product/updateproductstatus/${pid}/${status}`);
+    return res.data;
+}
+
+export async function fetchCustomers() {
+    const res = await axios.get(`${API_BASE}/customer/getcustomerlist`);
+    return res.data;
+}
+
+export async function vendorLogin(vuid, vupass) {
+    const res = await axios.post(`${API_BASE}/vendor/login`, { vuid, vupass });
+    return res.data;
+}

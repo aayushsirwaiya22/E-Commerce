@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Link, useLocation } from "react-router-dom";
 
 import AdminMain from "./adminviews/AdminMain";
 import AdminLogin from "./adminviews/AdminLogin";
@@ -15,17 +15,20 @@ import VendorLogin from "./Vendor/VendorLogin";
 import VendorReg from "./Vendor/VendorReg";
 import ModernApp from "./modern/ModernApp";
 
-function MainPage() {
+function Shell() {
+    const { pathname } = useLocation();
+    const isModern = pathname.startsWith("/modern");
     return (
-        <Router>
             <div className="main-container">
-                <nav className="main-nav">
-                    <ul>
-                        <li><Link to="/adminmain">Admin</Link></li>
-                        <li><Link to="/customermain">Customer</Link></li>
-                        <li><Link to="/vendormain">Vendor</Link></li>
-                    </ul>
-                </nav>
+                {!isModern && (
+                    <nav className="main-nav">
+                        <ul>
+                            <li><Link to="/adminmain">Admin</Link></li>
+                            <li><Link to="/customermain">Customer</Link></li>
+                            <li><Link to="/vendormain">Vendor</Link></li>
+                        </ul>
+                    </nav>
+                )}
 
                 <Routes>
                     {/* Admin Routes */}
@@ -51,6 +54,13 @@ function MainPage() {
                     <Route path="/modern/*" element={<ModernApp />} />
                 </Routes>
             </div>
+    );
+}
+
+function MainPage() {
+    return (
+        <Router>
+            <Shell />
         </Router>
     );
 }
