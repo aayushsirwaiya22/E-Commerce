@@ -36,3 +36,23 @@ export async function fetchVendors() {
     const res = await axios.get(`${API_BASE}/vendor/getvendorcount`);
     return res.data;
 }
+
+export async function nextProductId() {
+    const res = await axios.get(`${API_BASE}/product/getmaxpid`);
+    const list = res.data || [];
+    const max = list.reduce((m, p) => Math.max(m, Number(p.pid) || 0), 0);
+    return max + 1;
+}
+
+export async function saveProduct(obj) {
+    const res = await axios.post(`${API_BASE}/product/saveproduct`, obj);
+    return res.data;
+}
+
+export async function uploadProductImage(file) {
+    const form = new FormData();
+    form.append("file", file);
+    const res = await fetch(`${API_BASE}/product/saveproductimage`, { method: "POST", body: form });
+    if (!res.ok) throw new Error("Image upload failed");
+    return res.text();
+}

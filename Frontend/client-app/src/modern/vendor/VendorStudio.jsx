@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link, Routes, Route, useLocation } from "react-router-dom";
 import { Container } from "../ui";
 import VendorDash from "./VendorDash";
+import AddProduct from "./AddProduct";
 
 const VID_KEY = "mk_vendor_vid";
 
@@ -53,7 +54,7 @@ function VendorStudio() {
             <Container className="py-8">
                 <Routes>
                     <Route path="/" element={<VendorDash />} />
-                    <Route path="/add" element={<VendorDash upcoming="Add-product wizard" />} />
+                    <Route path="/add" element={<AddProduct />} />
                     <Route path="/products" element={<VendorDash upcoming="My-products manager" />} />
                     <Route path="/orders" element={<VendorDash upcoming="Orders received" />} />
                 </Routes>
