@@ -12,6 +12,11 @@ export async function fetchProducts() {
     return res.data;
 }
 
+export async function fetchProduct(pid) {
+    const res = await axios.get(`${API_BASE}/product/showproductstatus/${pid}`);
+    return res.data;
+}
+
 export async function fetchCategories() {
     const res = await axios.get(`${API_BASE}/productcatg/show`);
     return res.data;

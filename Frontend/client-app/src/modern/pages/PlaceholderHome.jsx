@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { Container, Button, Skeleton, EmptyState, SectionTitle } from "../ui";
+import { Container, Button, Badge, Skeleton, EmptyState, SectionTitle } from "../ui";
 import { useGsap, useReveal, gsap } from "../motion";
-import { fetchProducts } from "../api";
+import { fetchProducts, fetchCategories } from "../api";
 import ProductCard from "../components/ProductCard";
 
 function PlaceholderHome() {
     const [items, setItems] = useState([]);
+    const [cats, setCats] = useState([]);
     const [loading, setLoading] = useState(true);
 
     const revealRef = useReveal();
@@ -16,9 +17,15 @@ function PlaceholderHome() {
     }, []);
 
     useEffect(() => {
-        fetchProducts()
-            .then((data) => setItems((data || []).slice(0, 4)))
-            .catch(() => setItems([]))
+        Promise.all([fetchProducts(), fetchCategories()])
+            .then(([p, c]) => {
+                setItems((p || []).slice(0, 4));
+                setCats(c || []);
+            })
+            .catch(() => {
+                setItems([]);
+                setCats([]);
+            })
             .finally(() => setLoading(false));
     }, []);
 
@@ -49,9 +56,23 @@ function PlaceholderHome() {
                 </Container>
             </div>
 
+            {/* Categories */}
+            {!loading && cats.length > 0 && (
+                <Container className="flex gap-3 overflow-x-auto py-6">
+                    <Link to="/modern/shop">
+                        <Badge tone="brand" className="cursor-pointer whitespace-nowrap px-4 py-2 text-sm">All</Badge>
+                    </Link>
+                    {cats.map((c) => (
+                        <Link key={c.PCatgId} to={`/modern/shop?cat=${c.PCatgId}`}>
+                            <Badge tone="slate" className="cursor-pointer whitespace-nowrap px-4 py-2 text-sm transition hover:bg-brand-50 hover:text-brand-700">{c.PCatgName}</Badge>
+                        </Link>
+                    ))}
+                </Container>
+            )}
+
             {/* Trending strip (live data) */}
             <Container ref={revealRef} className="py-12">
-                <SectionTitle kicker="Fresh from the shelves" title="Trending now" hint="Live products from your backend — full shop with filters arrives in Phase 1." />
+                <SectionTitle kicker="Fresh from the shelves" title="Trending now" hint="Live products from your backend." />
                 {loading ? (
                     <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
                         {[0, 1, 2, 3].map((i) => <Skeleton key={i} className="h-80" />)}
