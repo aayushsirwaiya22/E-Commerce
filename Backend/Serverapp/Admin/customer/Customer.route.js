@@ -1,4 +1,5 @@
 const express =require("express");
+const path = require("path");
 const multer =require("multer")
 const customerRoute=express.Router();
 const bodyparser =require("body-parser");
@@ -8,19 +9,18 @@ const nodemailer =require("nodemailer");
 
 function sendGmail(mailto){
     console.log("mail:-"+mailto);
-    res.status(200).json({response: "Mail sent"});
     const transporter=nodemailer.createTransport({
         service:"gmail",
         port:465,
         secure:true,
         auth:{
-            user:"bsmernwala@gmail.com",
-            pass:"necc umnw wnpi bmzy "
+            user:process.env.EMAIL_USER,
+            pass:process.env.EMAIL_PASS
         }
     })
 
     const mailOptions ={
-            from:"aayushsirwaiya22@gmail.com",
+            from:process.env.EMAIL_USER,
             to:mailto,
             subject:"Registration sucess",
             text:"Dear Customer , Your Regisrtation is succesfully done but it is in"
@@ -71,13 +71,13 @@ function sendGmail(mailto){
     
     //get  image
         customerRoute.route("/getimage/:cpicname").get((req,res)=>{
-            res.sendFile("F:/React/Project/Backend/Severapp/Admin/customer/CustomerImages/"+req.params.cpicname)
+            res.sendFile(path.join(__dirname, "CustomerImages", req.params.cpicname))
             })
 
     //save image
     const st = multer.diskStorage({
         destination: (req, file, cb) => {
-            cb(null,"F:/React/Project/Backend/Severapp/Admin/customer/CustomerImages/"); // Ensure the folder exists
+            cb(null, path.join(__dirname, "CustomerImages")); // Ensure the folder exists
         },
         filename: (req, file, cb) => {
             cb(null, file.originalname);

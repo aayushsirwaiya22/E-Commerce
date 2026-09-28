@@ -32,7 +32,7 @@ function Bill(props) {
         setCContact(res.data.CContact);
         mydateFun();
     }).catch((err)=>{
-        alert(err);
+        alert(err.response?.data || err.message || "Failed to load customer details");
     })
    },[]);
 
@@ -88,7 +88,7 @@ function Bill(props) {
             }
 
             axios.post("http://localhost:9669/bill/billsave",billobj).then((res)=>{
-                alert(res.data);
+                alert(res.data.bill || JSON.stringify(res.data));
             })
         });
         // .catch((err)=>{
@@ -96,7 +96,7 @@ function Bill(props) {
             // })
 
          }) .catch((err)=>{
-         alert("outer"+err);
+         alert("outer: " + (err.response?.data || err.message));
          })
     }
 
@@ -164,21 +164,21 @@ function Bill(props) {
             amount:amount/100
         };
         axios.post("http://localhost:9669/paymentdetailsave",paydetlobjdata).then((res)=>{
-            alert(res.data);
-            if(res.data=="payment details saved Successfully")
+            alert(typeof res.data === "object" ? JSON.stringify(res.data) : res.data);
+            if(res.data=="payment detials saved sucessfully")
                 {
                     // alert ("Payment Already Done ");
                     // SetisPaymentDone(true);
                     axios.put("http://localhost:9669/bill/billstatusupdated/"+nextbillid)
                     .then((res)=>{
-                        alert(res.data)
+                        alert(Array.isArray(res.data) ? "Bill status updated (" + res.data.length + " records)" : (typeof res.data === "object" ? JSON.stringify(res.data) : res.data))
                     })
                     .catch((err)=>{
-                        alert(err)
+                        alert(err.response?.data || err.message || "Failed to update bill status")
                     })
                 }
              }).catch((err)=>{
-                alert(err);
+                alert(err.response?.data || err.message || "Failed to save payment details");
              })
             
         },

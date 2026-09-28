@@ -1,6 +1,7 @@
 
 
 const express =require("express");
+const path = require("path");
 const productRoute=express.Router();
 let Product =require("./Product.model");
 const multer= require("multer");
@@ -61,7 +62,7 @@ productRoute.route("/getmaxpid").get(function(req,res){
 //save product image
 const stv = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, "F:/React/Project/Backend/Severapp/Admin/Product/ProductImages"); // Ensure the folder exists
+        cb(null, path.join(__dirname, "ProductImages")); // Ensure the folder exists
     },
     filename: (req, file, cb) => {
         cb(null, file.originalname);
@@ -78,7 +79,7 @@ productRoute.post("/saveproductimage", uploadv.single("file"), (req, res) => {
 
 //get product image
     productRoute.route("/getproductimage/:ppicname").get(function(req,res){
-        res.sendFile("F:/React/Project/Backend/Severapp/Admin/Product/ProductImages/"+req.params.ppicname)
+        res.sendFile(path.join(__dirname, "ProductImages", req.params.ppicname))
         })
 
     //get product by vendor

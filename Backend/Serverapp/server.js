@@ -1,4 +1,5 @@
 //server.js file is used to connect route ,model,and database
+require("dotenv").config();
 const express =require ("express");
 const app = express();
 const bodyParser = require("body-parser");
@@ -18,9 +19,8 @@ const router = require("./payment.js");
 const paymentRouter=require("./paymentDetails/paymentdetails.route.js")
 
 const sendMail = require("./controllers/sendMail.js");
-// const emailactivationRoute=require("./emailactivation.js");
-// const emailrouter = require("./emailactivation.js");
-// const emailrouter=require("./email.model.js")
+const emailactivationRoute = require("./emailactivation.js");
+const emailRoute = require("./email.model.js");
 
 
 app.use(cors());
@@ -36,8 +36,8 @@ app.use("/customer",CustomerRoute);
 app.use("/bill",billRoute);
 app.use("/PaymentDetails",paymentRouter);
 app.use("/payment",router);
-// app.use("/emailactivation",emailactivationRoute)
-// app.use("/emailrouter",emailrouter)
+app.use("/emailactivation",emailactivationRoute);
+app.use("/email",emailRoute);
 
 // app.use("./vendor",VendorRoute);
 mongoose.connect(config.URL)

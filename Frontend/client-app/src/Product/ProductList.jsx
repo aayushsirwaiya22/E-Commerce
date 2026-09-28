@@ -1,6 +1,6 @@
 import React, { useEffect,useState } from "react";
 import axios from "axios";
-import cart from "F:/React/Project/Frontend/client-app/src/Product/Cart.jpeg";
+import cart from "./Cart.jpeg";
 import reactDOM from "react-dom/client";
 import Bill from "../Bill/Bill";
 
@@ -14,7 +14,7 @@ function ProductList(props) {
     useEffect(() => {
         axios.get("http://localhost:9669/product/showproduct")
             .then((res) => {
-                setPCatgList(res.data);
+                setPList(res.data);
             })
             .catch((err) => {
                 alert(err);
@@ -69,7 +69,7 @@ function ProductList(props) {
     const handleSearch=(evt)=>{
         if(evt.target.value>0)
         {
-            axios.get("http://localhost:9669/product/showproductbycatgid"+evt.target.value)
+            axios.get("http://localhost:9669/product/showproductbycatgid/"+evt.target.value)
             .then((res) => {
                 setPList(res.data);
             })
@@ -96,12 +96,12 @@ function ProductList(props) {
                     <button type="submit" onClick={handleCheckButton}>CheckOut</button>
                 </div>
             <center>
-                search by category<select onClick={handleSearch}>
+                search by category<select onChange={handleSearch}>
                     <option value="0">All</option>
                     {
-                        pcatglist.map((pcatgitem)=>{
-                            <option value={pcatgitem.pcatgId}>{pcatgitem.pcatgName}</option>
-                        })
+                        pcatglist.map((pcatgitem)=>(
+                            <option value={pcatgitem.PCatgId}>{pcatgitem.PCatgName}</option>
+                        ))
                     }
                 </select>
                 <p style={{backgroundColor:"green",color:"white"}}>Product List</p>

@@ -1,4 +1,5 @@
 const express = require("express");
+const path = require("path");
 const VendorRoute = express.Router();
 const bodyparser =require("body-parser");
 var Vendor=require("./Vendor.model");
@@ -40,13 +41,13 @@ VendorRoute.route("/login").post((req,res)=>{
 
 //Get Image
 VendorRoute.route("/getimage/:vpicname").get((req,res)=>{
-    res.sendFile("F:/React/Project/Backend/Severapp/Admin/Vendor/VendorImages/"+req.params.vpicname)
+    res.sendFile(path.join(__dirname, "VendorImages", req.params.vpicname))
 });
 
 //image save
 const st = multer.diskStorage({
    destination:(req,file,cb)=>{
-    cb(null,'F:/React/Project/Backend/Severapp/Admin/Vendor/VendorImages')
+    cb(null, path.join(__dirname, "VendorImages"))
    },
    filename:(req,file,cb)=>{
     cb(null,file.originalname)
@@ -66,7 +67,7 @@ VendorRoute.route("/getvendorcount").get((req,res)=>{
         res.end;
     })
     .catch((err)=>{
-        res.send("Somethong went Wroong");
+        res.send("Somethong went Wrong");
         res.end();
     })
 })
