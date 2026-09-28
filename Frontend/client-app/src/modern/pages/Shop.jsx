@@ -18,6 +18,10 @@ function Shop() {
     const revealRef = useReveal();
 
     useEffect(() => {
+        setQuery(params.get("q") || "");
+    }, [params]);
+
+    useEffect(() => {
         Promise.all([fetchProducts(), fetchCategories()])
             .then(([p, c]) => {
                 setItems(p || []);

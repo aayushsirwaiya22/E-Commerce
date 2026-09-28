@@ -21,6 +21,7 @@ const paymentRouter=require("./paymentDetails/paymentdetails.route.js")
 const sendMail = require("./controllers/sendMail.js");
 const emailactivationRoute = require("./emailactivation.js");
 const emailRoute = require("./email.model.js");
+const adminRoute = require("./Admin/admin.route.js");
 
 
 app.use(cors());
@@ -38,6 +39,7 @@ app.use("/PaymentDetails",paymentRouter);
 app.use("/payment",router);
 app.use("/emailactivation",emailactivationRoute);
 app.use("/email",emailRoute);
+app.use("/admin",adminRoute);
 
 // app.use("./vendor",VendorRoute);
 mongoose.connect(config.URL)

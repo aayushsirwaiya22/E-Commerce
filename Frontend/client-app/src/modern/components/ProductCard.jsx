@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import toast from "react-hot-toast";
-import { Badge, Button, Card } from "../ui";
+import { Button, Card } from "../ui";
 import { productImage } from "../api";
 
 export function discountPct(pprice, oprice) {
@@ -12,31 +12,34 @@ export function discountPct(pprice, oprice) {
 function ProductCard({ item }) {
     const pct = discountPct(item.pprice, item.oprice);
     return (
-        <Card className="group flex flex-col overflow-hidden">
+        <Card className="group flex flex-col overflow-hidden !rounded-none !shadow-none ring-0 transition hover:shadow-[0_4px_20px_rgba(40,44,63,0.12)]">
             <div className="relative overflow-hidden bg-white">
-                {pct > 0 && (
-                    <Badge tone="green" className="absolute left-3 top-3 z-10">{pct}% off</Badge>
-                )}
                 <Link to={`/modern/product/${item.pid}`}>
                     <img
                         src={productImage(item.ppicname)}
                         alt={item.pname}
                         loading="lazy"
-                        className="h-52 w-full object-contain p-4 transition-transform duration-300 group-hover:scale-105"
+                        className="h-64 w-full object-contain p-3 transition-transform duration-300 group-hover:scale-[1.03]"
                     />
                 </Link>
             </div>
-            <div className="flex flex-1 flex-col gap-1 p-4">
-                <Link to={`/modern/product/${item.pid}`} className="truncate font-display text-sm font-bold text-ink-900 hover:text-brand-700">{item.pname}</Link>
-                <p className="flex items-baseline gap-2">
-                    <span className="font-display text-lg font-extrabold">₹{item.oprice}</span>
-                    {pct > 0 && <span className="text-sm text-ink-600 line-through">₹{item.pprice}</span>}
+            <div className="flex flex-1 flex-col px-3 pb-4 pt-2">
+                <Link to={`/modern/product/${item.pid}`} className="truncate font-display text-sm font-bold text-ink-900">{item.pname}</Link>
+                <p className="truncate text-[13px] text-ink-600">{item.pname} · ID #{item.pid}</p>
+                <p className="mt-1 flex items-baseline gap-1.5 text-sm">
+                    <span className="font-display font-extrabold">Rs. {item.oprice}</span>
+                    {pct > 0 && (
+                        <>
+                            <span className="text-[13px] text-ink-600 line-through">Rs. {item.pprice}</span>
+                            <span className="text-[13px] font-bold text-accent-500">({pct}% OFF)</span>
+                        </>
+                    )}
                 </p>
                 <Button
-                    className="mt-2 w-full"
-                    onClick={() => toast.success(`${item.pname} — full shop arrives in Phase 1`)}
+                    className="mt-2 w-full !rounded-md"
+                    onClick={() => toast.success(`${item.pname} — bag arrives with the cart phase`)}
                 >
-                    Buy Now
+                    ADD TO BAG
                 </Button>
             </div>
         </Card>

@@ -8,9 +8,9 @@ export function Button({ children, variant = "primary", className = "", ...rest 
     const base =
         "inline-flex items-center justify-center gap-2 rounded-xl px-5 py-2.5 font-display text-sm font-bold transition-all duration-200 active:scale-95 disabled:opacity-50";
     const styles = {
-        primary: "bg-brand-600 text-white shadow-lg shadow-brand-600/25 hover:bg-brand-700 hover:shadow-xl hover:-translate-y-0.5",
-        accent: "bg-accent-400 text-ink-900 shadow-lg shadow-accent-400/40 hover:brightness-95 hover:-translate-y-0.5",
-        ghost: "bg-white text-ink-900 ring-1 ring-slate-200 hover:ring-brand-500 hover:text-brand-700",
+        primary: "bg-brand-500 text-white shadow-md shadow-brand-500/25 hover:bg-brand-600 hover:shadow-lg hover:-translate-y-0.5",
+        accent: "bg-brand-50 text-brand-700 ring-1 ring-brand-500 hover:bg-brand-100 hover:-translate-y-0.5",
+        ghost: "bg-white text-ink-900 ring-1 ring-slate-300 hover:ring-brand-500 hover:text-brand-600",
         dark: "bg-ink-900 text-white hover:bg-black",
     };
     return (

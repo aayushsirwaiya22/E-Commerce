@@ -71,3 +71,8 @@ export async function vendorLogin(vuid, vupass) {
     const res = await axios.post(`${API_BASE}/vendor/login`, { vuid, vupass });
     return res.data;
 }
+
+export async function adminLogin(user, pass) {
+    const res = await axios.post(`${API_BASE}/admin/login`, { user, pass });
+    return res.data;
+}
