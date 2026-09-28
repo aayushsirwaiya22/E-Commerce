@@ -13,6 +13,7 @@ import CustomerReg from "./Customer/CustomerReg";
 import VendorMain from "./Vendor/VendorMain";
 import VendorLogin from "./Vendor/VendorLogin";
 import VendorReg from "./Vendor/VendorReg";
+import ModernApp from "./modern/ModernApp";
 
 function MainPage() {
     return (
@@ -45,6 +46,9 @@ function MainPage() {
                         <Route path="vendorlogin" element={<VendorLogin />} />
                         <Route path="vendorreg" element={<VendorReg />} />
                     </Route>
+
+                    {/* Modern experience (new UI, legacy untouched) */}
+                    <Route path="/modern/*" element={<ModernApp />} />
                 </Routes>
             </div>
         </Router>
