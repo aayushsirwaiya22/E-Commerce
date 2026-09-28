@@ -1,3 +1,4 @@
+import { API_BASE } from "../config";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
@@ -31,7 +32,7 @@ function CityMgt() {
   //   Handle page Load Event or This Function Will execute automatically at the loading
 
   useEffect(() => {
-    axios.get("http://localhost:9669/state/show")
+    axios.get(API_BASE + "/state/show")
       .then((res) => {
         setStList(res.data);
       })
@@ -42,7 +43,7 @@ function CityMgt() {
 
   const handleAddNewButton = () => {
     axios
-      .get("http://localhost:9669/city/getall")
+      .get(API_BASE + "/city/getall")
       .then((res) => {
         setCtId(res.data.length + 1);
         // setStatus(1);
@@ -67,7 +68,7 @@ function CityMgt() {
       return;
     } else {
       axios
-        .get("http://localhost:9669/city/searchbyname/" + ctname)
+        .get(API_BASE + "/city/searchbyname/" + ctname)
         .then((res) => {
           if (res.data.ctname != undefined) {
             alert("City name alrady exist");
@@ -79,7 +80,7 @@ function CityMgt() {
               status: status,
             };
             axios
-              .post("http://localhost:9669/city/save/", obj)
+              .post(API_BASE + "/city/save/", obj)
               .then((res) => {
                 alert(res.data);
                 setCtId(" ");
@@ -101,7 +102,7 @@ function CityMgt() {
  
   const handleShowButton = () => {
     axios
-      .get("http://localhost:9669/city/getall")
+      .get(API_BASE + "/city/getall")
       .then((res) => {
         setCtList(res.data);
       })
@@ -113,7 +114,7 @@ function CityMgt() {
   const handleSearchButton=()=>{
     if(ctid!=undefined&&ctid!="")
     {
-        axios.get("http://localhost:9669/city/search/"+ctid).then((res)=>{
+        axios.get(API_BASE + "/city/search/"+ctid).then((res)=>{
             if(res.data.stid!=undefined){
                 setCtId(res.data.ctid);
                 setCtName(res.data.ctname);
@@ -148,7 +149,7 @@ function CityMgt() {
               stid: stid,
               status: status,
             }
-            axios.put("http://localhost:9669/city/update/",obj).then((res)=>{
+            axios.put(API_BASE + "/city/update/",obj).then((res)=>{
                 alert(res.data);
                 setCtId("");
                 setCtName("");
@@ -162,7 +163,7 @@ function CityMgt() {
 
   const handleDeleteButton=()=>{
     if(ctid!=undefined&&ctid!=""){
-        axios.delete("http://localhost:9669/city/delete/"+ctid).then((res)=>{
+        axios.delete(API_BASE + "/city/delete/"+ctid).then((res)=>{
             alert(res.data);
         }).catch((err)=>{
             alert(err);

@@ -1,3 +1,4 @@
+import { API_BASE } from "../config";
 import React, { useEffect,useState } from "react";
 import axios from "axios";
 import cart from "./Cart.jpeg";
@@ -12,14 +13,14 @@ function ProductList(props) {
 
     var cname = "";
     useEffect(() => {
-        axios.get("http://localhost:9669/product/showproduct")
+        axios.get(API_BASE + "/product/showproduct")
             .then((res) => {
                 setPList(res.data);
             })
             .catch((err) => {
                 alert(err);
             });
-            axios.get("http://localhost:9669/productcatg/show")
+            axios.get(API_BASE + "/productcatg/show")
             .then((res)=>{
                 setPCatgList(res.data);
             })
@@ -31,7 +32,7 @@ function ProductList(props) {
     const handleBuyButton = (evt) => {
         var pid = parseInt(evt);
         var status = ""
-        axios.get("http://localhost:9669/product/showproductstatus/" + pid)
+        axios.get(API_BASE + "/product/showproductstatus/" + pid)
             .then((res) => {
                 status =res.data.status;
                 if (status == "Active") {
@@ -69,7 +70,7 @@ function ProductList(props) {
     const handleSearch=(evt)=>{
         if(evt.target.value>0)
         {
-            axios.get("http://localhost:9669/product/showproductbycatgid/"+evt.target.value)
+            axios.get(API_BASE + "/product/showproductbycatgid/"+evt.target.value)
             .then((res) => {
                 setPList(res.data);
             })
@@ -78,7 +79,7 @@ function ProductList(props) {
             })
         }
         else{
-            axios.get("http://localhost:9669/product/showproduct")
+            axios.get(API_BASE + "/product/showproduct")
             .then((res)=>{
                 setPList(res.data);
             })
@@ -133,7 +134,7 @@ function ProductList(props) {
                                 {cname}
                             </td>
                             <td>
-                                <img src={"http://localhost:9669/product/getproductimage/"+item.ppicname}
+                                <img src={API_BASE + "/product/getproductimage/"+item.ppicname}
                                 height={100} width={100}/>
                             </td>
                             <td>

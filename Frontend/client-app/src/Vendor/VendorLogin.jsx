@@ -1,3 +1,4 @@
+import { API_BASE } from "../config";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import VendorReg from "./VendorReg"
@@ -34,7 +35,7 @@ function VendorLogin() {
             vuid: uid,
             vupass: upass
         };
-        axios.post("http://localhost:9669/vendor/login", obj).then((res) => {
+        axios.post(API_BASE + "/vendor/login", obj).then((res) => {
           
             if (res.data.VUserId != undefined) {
                 if (res.data.Status == "Inactive") {

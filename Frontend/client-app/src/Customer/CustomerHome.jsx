@@ -1,3 +1,4 @@
+import { API_BASE } from "../config";
 import React, { useEffect, useState } from "react";
 import ProductList from "../Product/ProductList";
 import BillByID from "../Bill/BillByID";
@@ -42,7 +43,7 @@ function CustomerHome(props) {
                 <h5>Welcome, {props.data.cfname}</h5>
                 <img
                     className="customer-img"
-                    src={"http://localhost:9669/customer/getimage/" + props.data.cpicname}
+                    src={API_BASE + "/customer/getimage/" + props.data.cpicname}
                     height={100}
                     width={100}
                     alt="Customer"

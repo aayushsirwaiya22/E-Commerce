@@ -1,3 +1,4 @@
+import { API_BASE } from "../config";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
@@ -5,7 +6,7 @@ function VendorMgt() {
     const [vendorlist, setVendorList] = useState([]);
 
     useEffect(() => {
-        axios.get("http://localhost:9669/vendor/getvendorcount")
+        axios.get(API_BASE + "/vendor/getvendorcount")
             .then((res) => {
                 setVendorList(res.data);
             })
@@ -16,7 +17,7 @@ function VendorMgt() {
 
     const handleActiveButton = (vid) => {
         var newstatus = "Active";
-        axios.put("http://localhost:9669/vendor/vendormanage/" + vid + "/" + newstatus)
+        axios.put(API_BASE + "/vendor/vendormanage/" + vid + "/" + newstatus)
             .then((res) => {
                 alert(res.data);
             })
@@ -27,7 +28,7 @@ function VendorMgt() {
 
     const handleInActiveButton = (vid) => {
         var newstatus = "Inactive";
-        axios.put("http://localhost:9669/vendor/vendormanage/" + vid + "/" + newstatus)
+        axios.put(API_BASE + "/vendor/vendormanage/" + vid + "/" + newstatus)
             .then((res) => {
                 alert(res.data);
             })

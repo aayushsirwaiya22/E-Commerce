@@ -1,3 +1,4 @@
+import { API_BASE } from "../config";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
@@ -11,7 +12,7 @@ function ProductCatg() {
     };
 
     useEffect(() => {
-        axios.get("http://localhost:9669/productcatg/show").then((res) => {
+        axios.get(API_BASE + "/productcatg/show").then((res) => {
             setPcatgId(res.data.length + 1); // auto-set category id
         }).catch((err) => {
             alert(err);
@@ -23,7 +24,7 @@ function ProductCatg() {
             PCatgId: pcatgid,
             PCatgName: pcatgname
         };
-        axios.post("http://localhost:9669/productcatg/save", obj).then((res) => {
+        axios.post(API_BASE + "/productcatg/save", obj).then((res) => {
             alert(res);
         }).catch((err) => {
             alert(err);
@@ -31,7 +32,7 @@ function ProductCatg() {
     };
 
     const handleShowButton = () => {
-        axios.get("http://localhost:9669/productcatg/show").then((res) => {
+        axios.get(API_BASE + "/productcatg/show").then((res) => {
             setPctagList(res.data);
         }).catch((err) => {
             alert(err);

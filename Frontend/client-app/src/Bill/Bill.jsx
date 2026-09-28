@@ -1,3 +1,4 @@
+import { API_BASE } from "../config";
 //  npm install razorpay --save :-library provides payment geteway.
 //  Payment getway is used to implement online payment functionality.
 
@@ -26,7 +27,7 @@ function Bill(props) {
     }
     // alert ("item count in sitem = "+sitems.length);
 
-    axios.get("http://localhost:9669/customer/getcustomerdetails/"+props.data.cid).then((res)=>{
+    axios.get(API_BASE + "/customer/getcustomerdetails/"+props.data.cid).then((res)=>{
         setCName(res.data.CustomerName);
         setCAddress(res.data.CAddress);
         setCContact(res.data.CContact);
@@ -68,8 +69,8 @@ function Bill(props) {
     function SaveBill(){
        // alert(sitems.length);
        // var nextbillid="";
-        axios.get("http://localhost:9669/bill/getbillid").then((res)=>{
-        nextbillid=parseInt(res.data[0].billid)+1;
+        axios.get(API_BASE + "/bill/getbillid").then((res)=>{
+        nextbillid = (res.data && res.data.length > 0) ? parseInt(res.data[0].billid)+1 : 1001;
 
         const date = new Date();
         let day = date.getDate();
@@ -87,7 +88,7 @@ function Bill(props) {
                 status:"Success"
             }
 
-            axios.post("http://localhost:9669/bill/billsave",billobj).then((res)=>{
+            axios.post(API_BASE + "/bill/billsave",billobj).then((res)=>{
                 alert(res.data.bill || JSON.stringify(res.data));
             })
         });
@@ -119,7 +120,7 @@ function Bill(props) {
         // creating a new order
         //  const result = await axios.post(" "+myamount);
      
-       const result = await axios.post("http://localhost:9669/payment/orders/"+myamount);
+       const result = await axios.post(API_BASE + "/payment/orders/"+myamount);
 
 
     
@@ -150,7 +151,7 @@ function Bill(props) {
         };
     alert(data.razorpayPaymentId)
      
-      const result = await axios.post("http://localhost:9669/payment/success",data);
+      const result = await axios.post(API_BASE + "/payment/success",data);
         alert("Message From Payment Gateway :-"+result.data);
         // save payment details 
 
@@ -163,13 +164,13 @@ function Bill(props) {
             billid:nextbillid,
             amount:amount/100
         };
-        axios.post("http://localhost:9669/PaymentDetails/paymentdetailsave",paydetlobjdata).then((res)=>{
+        axios.post(API_BASE + "/PaymentDetails/paymentdetailsave",paydetlobjdata).then((res)=>{
             alert(typeof res.data === "object" ? JSON.stringify(res.data) : res.data);
             if(res.data=="payment detials saved sucessfully")
                 {
                     // alert ("Payment Already Done ");
                     // SetisPaymentDone(true);
-                    axios.put("http://localhost:9669/bill/billstatusupdated/"+nextbillid)
+                    axios.put(API_BASE + "/bill/billstatusupdated/"+nextbillid)
                     .then((res)=>{
                         alert(Array.isArray(res.data) ? "Bill status updated (" + res.data.length + " records)" : (typeof res.data === "object" ? JSON.stringify(res.data) : res.data))
                     })
@@ -248,7 +249,7 @@ function Bill(props) {
                             <td>{item.pid}</td>
                             <td>{item.pname}</td>
                             <td>{item.oprice}</td>
-                            <img src={'http://localhost:9669/product/getproductimage/'+item.ppicname} height="100" width="100"/>
+                            <img src={API_BASE + '/product/getproductimage/'+item.ppicname} height="100" width="100"/>
                         </tr>
                     ))
                 }

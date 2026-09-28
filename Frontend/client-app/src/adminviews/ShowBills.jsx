@@ -1,3 +1,4 @@
+import { API_BASE } from "../config";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "../App.css";
@@ -19,19 +20,19 @@ function ShowBills() {
     var count = 0;
 
     useEffect(() => {
-        axios.get("http://localhost:9669/customer/getcustomerlist").then((res) => {
+        axios.get(API_BASE + "/customer/getcustomerlist").then((res) => {
             setCustList(res.data);
         }).catch((err) => {
             alert("cust list" + err);
         });
 
-        axios.get("http://localhost:9669/product/showproduct").then((res) => {
+        axios.get(API_BASE + "/product/showproduct").then((res) => {
             setPList(res.data);
         }).catch((err) => {
             alert("show product" + err);
         });
 
-        axios.get("http://localhost:9669/paymentdetails/showpaymentdetails").then((res) => {
+        axios.get(API_BASE + "/paymentdetails/showpaymentdetails").then((res) => {
             setPaymentList(res.data);
         }).catch((err) => {
             alert("show payment" + err);
@@ -39,7 +40,7 @@ function ShowBills() {
     }, [])
 
     const handleCustomerSelect = (evt) => {
-        axios.get("http://localhost:9669/bill/billshow/" + evt.target.value).then((res) => {
+        axios.get(API_BASE + "/bill/billshow/" + evt.target.value).then((res) => {
             setBillDetailsList(res.data);
             setprevbillid(res.data[0].billid);
             prbid = res.data[0].billid;
@@ -113,7 +114,7 @@ function ShowBills() {
                                             <td>{oprice}</td>
                                             <td>
                                                 <img
-                                                    src={`http://localhost:9669/product/getproductimage/${picname}`}
+                                                    src={`${API_BASE}/product/getproductimage/${picname}`}
                                                     height={50} width={50}
 
                                                     alt="Product"

@@ -1,3 +1,4 @@
+import { API_BASE } from "../config";
 import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom/client";
 import VendorLogin from "./VendorLogin";
@@ -36,7 +37,7 @@ function VendorHome(props) {
                 <h4>Vendor Home Page</h4>
                 <h5>Vendor Id{props.data.vid}</h5>
                 <h5>Welome{props.data.vfname}</h5>
-                <img src={"http://localhost:9669/vendor/getimage/" + props.data.vpicname } width="100" height="100"/>
+                <img src={API_BASE + "/vendor/getimage/" + props.data.vpicname } width="100" height="100"/>
 
                 <button onClick={handleAddProductButton}>Manage Product</button>
                 <button type="submit" onClick={handleLogOut}>Logout</button>

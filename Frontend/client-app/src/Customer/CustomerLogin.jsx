@@ -1,3 +1,4 @@
+import { API_BASE } from "../config";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import CustomerHome from "./CustomerHome"
@@ -30,7 +31,7 @@ function CustomerLogin() {
             CUserPass: upass,
 
         }
-        axios.post("http://localhost:9669/customer/login", obj)
+        axios.post(API_BASE + "/customer/login", obj)
             .then((res) => {
 
                 if (res.data.CUserId!=undefined){

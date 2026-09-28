@@ -1,3 +1,4 @@
+import { API_BASE } from "../config";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
@@ -34,12 +35,12 @@ function Product(props) {
     }
     useEffect(() => {
         // alert("VID= " + venderid)
-        axios.get("http://localhost:9669/product/getmaxpid").then((res) => {
+        axios.get(API_BASE + "/product/getmaxpid").then((res) => {
             setPId(res.data.length + 1);
         }).catch((err) => {
             alert(err);
         })
-        axios.get("http://localhost:9669/productcatg/show").then((res) => {
+        axios.get(API_BASE + "/productcatg/show").then((res) => {
             setPCatgList(res.data);
         }).catch((err) => {
             alert(err);
@@ -58,7 +59,7 @@ function Product(props) {
             vid: vendorid,
             status: "Active"
         };
-        axios.post("http://localhost:9669/product/saveproduct/", obj)
+        axios.post(API_BASE + "/product/saveproduct/", obj)
             .then((res) => {
                 alert("Product Saved");
             })
@@ -68,7 +69,7 @@ function Product(props) {
     }
 
     const handleShowButton = () => {
-        axios.get("http://localhost:9669/product/showproductbyvendor/" + vendorid)
+        axios.get(API_BASE + "/product/showproductbyvendor/" + vendorid)
             .then((res) => {
                 setPList(res.data);
             })
@@ -83,7 +84,7 @@ function Product(props) {
         evt.preventDefault()
         let formData = new FormData()
         formData.append('file', image.data);
-        const response = await fetch('http://localhost:9669/product/saveproductimage', {
+        const response = await fetch(API_BASE + '/product/saveproductimage', {
             method: 'POST',
             body: formData,
         })
@@ -107,7 +108,7 @@ function Product(props) {
     }
 
     const handleNewButton = () => {
-        axios.get("http://localhost:9669/product/getmaxpid")
+        axios.get(API_BASE + "/product/getmaxpid")
             .then((res) => {
                 setPId(res.data.length + 1);
                 setPName("");
@@ -223,7 +224,7 @@ function Product(props) {
                                     {cname}
                                 </td>
                                 <td>
-                                    <img src={"http://localhost:9669/product/getproductimage/" + item.ppicname} height={100} width={100} />
+                                    <img src={API_BASE + "/product/getproductimage/" + item.ppicname} height={100} width={100} />
                                 </td>
                             </tr>
                         ))}

@@ -1,3 +1,4 @@
+import { API_BASE } from "../config";
 import React, { useEffect, useState } from 'react';
 import axios from "axios";
 
@@ -13,13 +14,13 @@ function BillByID(props) {
     var ppicname = "";
 
     useEffect(() => {
-        axios.get("http://localhost:9669/bill/billshowbillids/" + props.data).then((res) => {
+        axios.get(API_BASE + "/bill/billshowbillids/" + props.data).then((res) => {
             setBillIdList(res.data);
         }).catch((err) => {
             alert(err);
         });
 
-        axios.get("http://localhost:9669/product/showproduct").then((res) => {
+        axios.get(API_BASE + "/product/showproduct").then((res) => {
             setPList(res.data);
         }).catch((err) => {
             alert(err);
@@ -28,7 +29,7 @@ function BillByID(props) {
     }, []);
 
     const handleBillSelect = (evt) => {
-        axios.get("http://localhost:9669/bill/showbillbyid/" + evt.target.value).then((res) => {
+        axios.get(API_BASE + "/bill/showbillbyid/" + evt.target.value).then((res) => {
             setBillDetailsList(res.data);
         }).catch((err) => {
             alert(err);
@@ -91,7 +92,7 @@ function BillByID(props) {
                                         <td>{oprice}</td>
                                         <td>
                                             <img
-                                                src={"http://localhost:9669/product/getproductimage/" + ppicname}
+                                                src={API_BASE + "/product/getproductimage/" + ppicname}
                                                 height="100"
                                                 width="100"
                                                 className="billbyid-product-image"

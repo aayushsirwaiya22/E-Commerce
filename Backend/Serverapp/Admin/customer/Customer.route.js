@@ -121,7 +121,6 @@ function sendGmail(mailto){
 
 //get customer list
 customerRoute.route("/getcustomerlist").get((req,res)=>{
-    var id=req.body.cid;
     Customer.find()
     .then(customer=>{
         // console.log(customer);

@@ -1,3 +1,4 @@
+import { API_BASE } from "../config";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
@@ -29,7 +30,7 @@ function CustomerReg(props) {
 
     const handleStIdSelect = (evt) => {
         setStId(evt.target.value);
-        axios.get("http://localhost:9669/city/showallcitybystate/" + evt.target.value)
+        axios.get(API_BASE + "/city/showallcitybystate/" + evt.target.value)
             .then((res) => {
                 setCtList(res.data);
             })
@@ -55,14 +56,14 @@ function CustomerReg(props) {
         setCId(evt.target.value);
     }
     useEffect(() => {
-        axios.get("http://localhost:9669/customer/getcustomercount")
+        axios.get(API_BASE + "/customer/getcustomercount")
             .then((res) => {
                 setCId(res.data.length + 1);
             })
             .catch((err) => {
                 alert(err);
             })
-        axios.get("http://localhost:9669/State/show/")
+        axios.get(API_BASE + "/State/show/")
             .then((res) => {
                 setStList(res.data);
             })
@@ -88,7 +89,7 @@ function CustomerReg(props) {
         let formData = new FormData()
         formData.append('file', image.data);
         const response = await fetch
-            ("http://localhost:9669/customer/savecustomerimage", {
+            (API_BASE + "/customer/savecustomerimage", {
                 method: 'POST',
                 body: formData,
             })
@@ -101,11 +102,11 @@ function CustomerReg(props) {
             }
         }
 
-        axios.post("http://localhost:9669/customer/register/", obj)
+        axios.post(API_BASE + "/customer/register/", obj)
             .then((res) => {
                 alert(res.data);
                 if (res.data == "Registration successfully") {
-                    axios.post("http://localhost:9669/email/sendemails/" + cemail)
+                    axios.post(API_BASE + "/email/sendemails/" + cemail)
                         .then((res) => {
                             alert(res.data);
                         })
@@ -123,7 +124,7 @@ function CustomerReg(props) {
         evt.preventDefault()
         let formData = new FormData()
         formData.append('file', image.data);
-        const response = await fetch("http://localhost:9669/customer/savecustomerimage", {
+        const response = await fetch(API_BASE + "/customer/savecustomerimage", {
             method: 'POST',
             body: formData,
         })

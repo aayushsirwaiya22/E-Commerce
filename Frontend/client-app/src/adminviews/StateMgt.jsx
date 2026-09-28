@@ -1,3 +1,4 @@
+import { API_BASE } from "../config";
 import React,{useEffect, useState} from "react";
 import axios from "axios";
 // import "../App.css"
@@ -25,7 +26,7 @@ function StateMgt(){
             StName:stname,
             Status:status
         };
-        axios.post("http://localhost:9669/state/save",obj)
+        axios.post(API_BASE + "/state/save",obj)
         .then((res)=>{
             alert(res.data);
         }).catch((err)=>{
@@ -33,7 +34,7 @@ function StateMgt(){
         });
     }
     const handleSearchButton=()=>{
-         axios.get("http://localhost:9669/state/search/"+stid)
+         axios.get(API_BASE + "/state/search/"+stid)
          .then((res)=>{
             if ( res.data.StId!=undefined) {  // Ensures response has valid data
                 setStId(res.data.StId);
@@ -56,7 +57,7 @@ function StateMgt(){
             StName:stname,
             Status:status
         };
-        axios.put("http://localhost:9669/state/update",obj)
+        axios.put(API_BASE + "/state/update",obj)
         .then((res)=>{
             alert(res.data);
         }).catch((err)=>{
@@ -64,7 +65,7 @@ function StateMgt(){
         });
     }
     const handleDeleteButton=()=>{
-        axios.delete("http://localhost:9669/state/delete/"+ stid)
+        axios.delete(API_BASE + "/state/delete/"+ stid)
         .then((res)=>{
             alert(res.data);
         }).catch((err)=>{
@@ -72,7 +73,7 @@ function StateMgt(){
         });
     }
     const handleShowAllButton=()=>{
-        axios.get("http://localhost:9669/state/show")
+        axios.get(API_BASE + "/state/show")
         .then((res)=>{
             setSlist(res.data)            
         }).catch((err)=>{
@@ -80,7 +81,7 @@ function StateMgt(){
         });
     }
     useEffect(()=>{
-        axios.get("http://localhost:9669/state/show")
+        axios.get(API_BASE + "/state/show")
         .then((res)=>{
             setStId(res.data.length+1) ;           
         }).catch((err)=>{

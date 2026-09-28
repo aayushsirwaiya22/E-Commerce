@@ -1,3 +1,4 @@
+import { API_BASE } from "../config";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import VendorLogin from "./VendorLogin"
@@ -38,7 +39,7 @@ function VendorReg() {
     }
 
     useEffect(() => {
-        axios.get("http://localhost:9669/vendor/getvendorcount/")
+        axios.get(API_BASE + "/vendor/getvendorcount/")
             .then((res) => {
                 setVId(res.data.length + 1);
             })
@@ -58,7 +59,7 @@ function VendorReg() {
             Vid: vid,
             Status: "active"
         }
-        axios.post("http://localhost:9669/vendor/register/", obj)
+        axios.post(API_BASE + "/vendor/register/", obj)
             .then((res) => {
                 alert(res.data);
             })
@@ -71,7 +72,7 @@ function VendorReg() {
         evt.preventDefault()
         let formData = new FormData()
         formData.append('file', image.data);
-        const response = await fetch("http://localhost:9669/vendor/savevendorimage", {
+        const response = await fetch(API_BASE + "/vendor/savevendorimage", {
             method: 'POST',
             body: formData,
         })

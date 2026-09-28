@@ -1,3 +1,4 @@
+import { API_BASE } from "../config";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import ReactDOM from "react-dom/client";
@@ -14,22 +15,22 @@ function ProductList(props) {
     var cname = "";
 
     useEffect(() => {
-        axios.get("http://localhost:9669/product/showproduct").then((res) => {
+        axios.get(API_BASE + "/product/showproduct").then((res) => {
             setPList(res.data);
         }).catch((err) => alert(err));
 
-        axios.get("http://localhost:9669/productcatg/show").then((res) => {
+        axios.get(API_BASE + "/productcatg/show").then((res) => {
             setPCatgList(res.data);
         }).catch((err) => alert(err));
 
-        axios.get("http://localhost:9669/vendor/getvendorcount").then((res) => {
+        axios.get(API_BASE + "/vendor/getvendorcount").then((res) => {
             setVList(res.data);
         }).catch((err) => alert(err));
     }, []);
 
     const handleBuyButton = (evt) => {
         var pid = parseInt(evt);
-        axios.get("http://localhost:9669/product/showproductstatus/" + pid).then((res) => {
+        axios.get(API_BASE + "/product/showproductstatus/" + pid).then((res) => {
             if (res.data.status === "Active") {
                 setItemCount(itemcount + 1);
                 plist.map((item) => {
@@ -42,12 +43,12 @@ function ProductList(props) {
     };
 
     const handleActiveButton = (pid) => {
-        axios.put("http://localhost:9669/product/updateproductstatus/" + pid + "/Active")
+        axios.put(API_BASE + "/product/updateproductstatus/" + pid + "/Active")
             .then(() => alert("Product Status Updated")).catch((err) => alert(err));
     };
 
     const handleInActiveButton = (pid) => {
-        axios.put("http://localhost:9669/product/updateproductstatus/" + pid + "/Inactive")
+        axios.put(API_BASE + "/product/updateproductstatus/" + pid + "/Inactive")
             .then(() => alert("Product Status Updated")).catch((err) => alert(err));
     };
 
@@ -68,8 +69,8 @@ function ProductList(props) {
     const handleSearch = (evt) => {
         const id = evt.target.value;
         const url = id > 0
-            ? "http://localhost:9669/product/showproductbycatgid/" + id
-            : "http://localhost:9669/product/showproduct";
+            ? API_BASE + "/product/showproductbycatgid/" + id
+            : API_BASE + "/product/showproduct";
         axios.get(url).then((res) => {
             setPList(res.data);
         }).catch((err) => alert(err));
@@ -78,8 +79,8 @@ function ProductList(props) {
     const handleSearchByVender = (evt) => {
         const id = evt.target.value;
         const url = id > 0
-            ? "http://localhost:9669/product/showproductbyvendor/" + id
-            : "http://localhost:9669/product/showproduct";
+            ? API_BASE + "/product/showproductbyvendor/" + id
+            : API_BASE + "/product/showproduct";
         axios.get(url).then((res) => {
             setPList(res.data);
         }).catch((err) => alert(err));
@@ -147,7 +148,7 @@ function ProductList(props) {
                                     {cname}
                                 </td>
                                 <td>
-                                    <img src={"http://localhost:9669/product/getproductimage/" + item.ppicname} height="100" width="100" />
+                                    <img src={API_BASE + "/product/getproductimage/" + item.ppicname} height="100" width="100" />
                                 </td>
                                 <td>{item.status}</td>
                                 <td>
