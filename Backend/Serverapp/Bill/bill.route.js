@@ -63,9 +63,9 @@ billRoute.route("/showbillbyid/:billid").get((req,res)=>{
 
 //update bill status  if succesfulyy set
 billRoute.route("/billstatusupdated/:billid").put((req,res)=>{
-    Bill.find({$and:[{"cid":req.params.cid},{"status":"success"}]})
-    .then(bill=>{
-        res.send(bill);
+    Bill.updateMany({"billid":req.params.billid},{"status":"Success"})
+    .then(result=>{
+        res.send(result);
         res.end()
     })
     .catch((err)=>{

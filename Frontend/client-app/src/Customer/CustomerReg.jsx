@@ -39,7 +39,7 @@ function CustomerReg(props) {
     }
 
     const handleCtIdSelect = (evt) => {
-        setCId(evt.target.value);
+        setCtId(evt.target.value);
     }
 
     const handleCAddressText = (evt) => {

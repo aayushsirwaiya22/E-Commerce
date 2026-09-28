@@ -106,8 +106,8 @@ function sendGmail(mailto){
 
     //get customer details by id
     customerRoute.route("/getcustomerdetails/:cid").get((req,res)=>{
-        var id=req.body.cid;
-        Customer.findOne({"cid":id})
+        var id=req.params.cid;
+        Customer.findOne({"Cid":id})
         .then(customer=>{
             // console.log(customer);
             res.send(customer);

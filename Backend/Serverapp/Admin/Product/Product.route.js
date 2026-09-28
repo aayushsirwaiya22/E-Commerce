@@ -112,7 +112,7 @@ productRoute.route("/showproductbycatgid/:pcatgid").get(function(req,res){
 
 //update status
 productRoute.route("/updateproductstatus/:pid/:status").put((req,res)=>{
-    Product.updateOne({"status":req.params.status}).then(state=>{
+    Product.updateOne({"pid":req.params.pid},{"status":req.params.status}).then(state=>{
         res.send("product status updated successfully");
         res.end();
     })

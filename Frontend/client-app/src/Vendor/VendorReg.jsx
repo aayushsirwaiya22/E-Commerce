@@ -52,7 +52,7 @@ function VendorReg() {
             VUserPass: vuserpass,
             VendorName: vendorname,
             VAddress: vaddress,
-            Vcontact: vcontact,
+            VContact: vcontact,
             VEmail: vemail,
             VPicName:vpicname,
             Vid: vid,
