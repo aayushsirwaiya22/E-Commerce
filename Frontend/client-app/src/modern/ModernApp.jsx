@@ -5,6 +5,7 @@ import { ModernShell } from "./layout";
 import PlaceholderHome from "./pages/PlaceholderHome";
 import Shop from "./pages/Shop";
 import ProductDetail from "./pages/ProductDetail";
+import VendorStudio from "./vendor/VendorStudio";
 
 // New experience lives under /modern/* — legacy pages untouched.
 function ModernApp() {
@@ -15,6 +16,7 @@ function ModernApp() {
                 <Route path="/" element={<PlaceholderHome />} />
                 <Route path="/shop" element={<Shop />} />
                 <Route path="/product/:pid" element={<ProductDetail />} />
+                <Route path="/vendor/*" element={<VendorStudio />} />
                 <Route path="*" element={<PlaceholderHome />} />
             </Routes>
         </ModernShell>

@@ -21,3 +21,18 @@ export async function fetchCategories() {
     const res = await axios.get(`${API_BASE}/productcatg/show`);
     return res.data;
 }
+
+export async function fetchVendorProducts(vid) {
+    const res = await axios.get(`${API_BASE}/product/showproductbyvendor/${vid}`);
+    return res.data;
+}
+
+export async function fetchBills() {
+    const res = await axios.get(`${API_BASE}/bill/billshow`);
+    return res.data;
+}
+
+export async function fetchVendors() {
+    const res = await axios.get(`${API_BASE}/vendor/getvendorcount`);
+    return res.data;
+}
