@@ -21,7 +21,6 @@ function CustomerLogin() {
         if (myccokies != undefined) {
             var obj = JSON.parse(myccokies);
             setUId(obj.username);
-            setUPass(obj.password);
         }
 
     }, []);
@@ -39,11 +38,10 @@ function CustomerLogin() {
                     alert("user not active Please wait for admin Activation process")
                     return;
                 }
-                // cookies handling  code 
+                // cookies handling  code (username only — never store the password)
                 if (ischecked == true) {
                     const userData = {
-                        username: uid,
-                        password: upass
+                        username: uid
                     };
                     const expirationTime =
                         new Date(new Date().getTime() + 6000000);

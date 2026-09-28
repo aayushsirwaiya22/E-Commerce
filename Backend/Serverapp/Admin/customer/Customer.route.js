@@ -1,6 +1,7 @@
 const express =require("express");
-const path = require("path");
 const multer =require("multer")
+const path = require("path");
+const { hashPassword, verifyPassword } = require("../../utils/passwords");
 const customerRoute=express.Router();
 const bodyparser =require("body-parser");
 const Customer=require("./Customer.model");
@@ -36,6 +37,7 @@ function sendGmail(mailto){
     }
     //customer registration code
     customerRoute.route("/register").post((req,res)=>{
+        if (req.body.CUserPass) req.body.CUserPass = hashPassword(req.body.CUserPass);
         var customer=new Customer(req.body);
         customer.save().then(customer=>{
             if(customer!=null){
@@ -57,8 +59,24 @@ function sendGmail(mailto){
     customerRoute.route("/login").post((req,res)=>{
         var id=req.body.CUserId;
         var pass=req.body.CUserPass;
-        Customer.findOne({$and:[{"CUserId":id},{"CUserPass":pass}]})
+        Customer.findOne({"CUserId":id})
         .then(customer=>{
+            if(!customer){
+                res.send({});
+                res.end();
+                return;
+            }
+            const check = verifyPassword(pass, customer.CUserPass);
+            if(!check.ok){
+                res.send({});
+                res.end();
+                return;
+            }
+            if(check.legacy){
+                const newHash = hashPassword(pass);
+                Customer.updateOne({ _id: customer._id }, { CUserPass: newHash }).catch(()=>{});
+            }
+            customer.CUserPass = undefined;
             res.send(customer);
             res.end();
         })

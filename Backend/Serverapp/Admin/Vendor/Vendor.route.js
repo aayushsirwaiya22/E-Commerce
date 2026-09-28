@@ -1,5 +1,6 @@
 const express = require("express");
 const path = require("path");
+const { hashPassword, verifyPassword } = require("../../utils/passwords");
 const VendorRoute = express.Router();
 const bodyparser =require("body-parser");
 var Vendor=require("./Vendor.model");
@@ -9,6 +10,7 @@ const multer =require("multer");
 
 //Vendor Registration code 
 VendorRoute.route("/register").post((req,res)=>{
+    if (req.body.VUserPass) req.body.VUserPass = hashPassword(req.body.VUserPass);
     var vendor = new Vendor(req.body);
     vendor.save().then(()=>{
        if(Vendor!=null){
@@ -27,8 +29,23 @@ VendorRoute.route("/login").post((req,res)=>{
     var id=req.body.vuid;
     var pass=req.body.vupass;
     console.log("userid="+id+"password"+pass);
-    Vendor.findOne({$and:[{"VUserId":id},{"VUserPass":pass}]}).then((vendor)=>{
-       
+    Vendor.findOne({"VUserId":id}).then((vendor)=>{
+        if(!vendor){
+            res.send({});
+            res.end();
+            return;
+        }
+        const check = verifyPassword(pass, vendor.VUserPass);
+        if(!check.ok){
+            res.send({});
+            res.end();
+            return;
+        }
+        if(check.legacy){
+            const newHash = hashPassword(pass);
+            Vendor.updateOne({ _id: vendor._id }, { VUserPass: newHash }).catch(()=>{});
+        }
+        vendor.VUserPass = undefined;
         res.send(vendor);
         res.end();
 

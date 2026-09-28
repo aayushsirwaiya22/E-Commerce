@@ -26,7 +26,6 @@ function VendorLogin() {
             var obj = JSON.parse(mycookies);
             //alert(obj.username);
             setUId(obj.username);
-            setUPass(obj.password);
         }
     }, [])
 
@@ -42,11 +41,10 @@ function VendorLogin() {
                     alert("User Not Active Please Wait For Admin Activation Process");
                     return;
                 }
-                //cookies handling code
+                //cookies handling code (username only — never store the password)
                 if (ischecked == true) {
                     const userData = {
-                        username: uid,
-                        password: upass
+                        username: uid
                     };
                     const expirationTime = new Date
                         (new Date().getTime() + 6000000);
